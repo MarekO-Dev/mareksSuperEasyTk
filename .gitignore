@@ -1,0 +1,5 @@
+.development
+tests/__pycache__
+supereasyTk/__pycache__
+.mypy_cache
+.pytest_cache
