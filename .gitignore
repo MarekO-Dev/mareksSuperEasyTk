@@ -1,5 +1,6 @@
 .development
-tests/__pycache__
-supereasyTk/__pycache__
+**/__pycache__
+
 .mypy_cache
 .pytest_cache
+.vscode
