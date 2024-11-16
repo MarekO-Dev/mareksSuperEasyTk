@@ -15,9 +15,9 @@ class Validator:
         else:
             return "800x600"
             
-
 class Application(Tk):
     
+    # All elements created with add_element method
     _all_elements: list = []
 
     def __init__(
@@ -26,6 +26,7 @@ class Application(Tk):
             window_size: tuple = (width := 800, height := 600),
             /,
             app_title = "tk"):
+        
         super().__init__()
         self._window_size: str = Validator.window_size_for_geometry(window_size)
         self.title(app_title)
@@ -99,4 +100,5 @@ class Application(Tk):
 
         self._all_elements.append(new_element)
 
+        #return self for method chaining
         return self
