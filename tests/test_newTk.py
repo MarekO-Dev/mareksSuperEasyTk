@@ -17,5 +17,14 @@ class TestAppVariables:
 
 class TestAppFeatures:
 
-    def test_button_addition(appInstance):
-        pass
+    def test_button_addition(cls, appInstance):
+        appInstance.add_element(
+                    newTk.Button, {
+                "text": "TestButton"
+            }, 
+                    element_window_manager_options = {
+                "row": 0,
+                "column": 0
+            })
+        print("Button Created")
+        assert len(appInstance._all_elements) > 0

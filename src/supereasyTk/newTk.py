@@ -23,27 +23,30 @@ class Application(Tk):
     def __init__(
         
             self,
-            window_size: tuple = (width := 800, height := 600)):
-            super().__init__()
+            window_size: tuple = (width := 800, height := 600),
+            /,
+            app_title = "tk"):
+        super().__init__()
+        self._window_size: str = Validator.window_size_for_geometry(window_size)
+        self.title(app_title)
 
-            self._window_size: str = Validator.window_size_for_geometry(window_size)
     def __call__(self):
         self.mainloop()
+
     @property
-    def size(
-            self):
-        '''
+    def size(self):
+        """
             Gets window size: (width, height)
-        '''
+        """
         return self._window_size
     
     @size.setter
     def size(
             self, 
             new_size: tuple):
-        '''
+        """
             Sets new window size
-        '''
+        """
         self._window_size = Validator.window_size_for_geometry(new_size)
 
     
@@ -57,18 +60,42 @@ class Application(Tk):
             element_window_manager_options: dict,
             overriden_master = None):
 
+        """
+            ### Args:
+
+            #### element_reference: tkinter Widget
+        
+                - Button, Frame, Label etc
+
+            #### element_window_manager: str
+                - "grid", "pack", "place"
+
+            #### element_window_manager_options: dict
+                - example
+                    ```python
+                { 
+                "row": 1,
+                "column": 0,
+                "sticky": NSEW
+                }
+                    ```
+
+        """
+
         if overriden_master is not None:
             new_element = element_reference(overriden_master, **element_options)
         else:
             new_element = element_reference(self, **element_options)
         
+        # Different actions based on different window manager
+
         match element_window_manager:
             case "grid":
                 new_element.grid(**element_window_manager_options)
             case "place":
-               pass 
+                new_element.place(**element_window_manager_options)
             case "pack":
-                pass
+                new_element.pack(**element_window_manager_options)
 
         self._all_elements.append(new_element)
 
